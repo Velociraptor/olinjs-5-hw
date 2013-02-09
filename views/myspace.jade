@@ -1,0 +1,32 @@
+extends layout
+
+block content
+
+	body(style="background-color:#{user.bgdColor}")
+		//script(src='/javascripts/submitOptions.js')
+		h1(style="color:#{user.textColor}")= title
+
+		div(class='profilepic')
+			img(src=pic)
+
+		div(class='settings')
+			h2(style="color:#{user.textColor}")= "Feel Free to Adjust your Settings"
+
+		form(id='changeForm', method='POST', action='/changeOptions')
+
+			p Background Color (i.e. red)
+				//input(id='bgColorText', value=user.bgdColor)
+				input(style="background-color:#{user.boxColor}", name='bgColorText')
+			p Text Color (i.e. blue)
+				//input(id='textColorText', value=user.textColor)
+				input(style="background-color:#{user.boxColor}", name='textColorText')
+			p Input Box Color (i.e. green)
+				//input(id='boxColorText', value=user.boxColor)
+				input(style="background-color:#{user.boxColor}", name='boxColorText')
+
+			p 
+				button(type='submit', id='changeSettings')
+					| Change Settings
+
+		a(href='/destroy')
+			| Log Out
