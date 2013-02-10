@@ -59,7 +59,7 @@ function facebookGetUser() {
   return function(req, res, next) {
     req.facebook.getUser( function(err, user) {
       if (!user || err){
-        res.send("you need to login");
+        res.send("you need to login, go to /login");
         //res.redirect('/login');
       } else {
         req.user = user;
