@@ -38,10 +38,36 @@ app.configure('development', function(){
 // });
 // });
 
-app.get('/', Facebook.loginRequired(), user.show);
-app.get('/users', user.list);
-app.post('/changeOptions', user.changeOptions);
+app.get('/login', Facebook.loginRequired(), function(req, res){
+  res.redirect('/');
+});
+app.get('/', facebookGetUser(), user.show);
+//app.get('/users', user.list);
+app.post('/changeOptions', facebookGetUser(), user.changeOptions);
 app.get('/destroy', user.destroy)
+app.get('/test', facebookGetUser(), function(req, res){
+    res.send("hello there", req.user);
+});
+app.get('/logout', facebookGetUser(), function(req, res){
+  req.user = null;
+  req.session.destroy();
+  //res.redirect('/');
+  res.redirect('/login');
+});
+
+function facebookGetUser() {
+  return function(req, res, next) {
+    req.facebook.getUser( function(err, user) {
+      if (!user || err){
+        //res.send("you need to login");
+        res.redirect('/login');
+      } else {
+        req.user = user;
+        next();
+      }
+    });
+  }
+}
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
