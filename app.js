@@ -51,16 +51,16 @@ app.get('/test', facebookGetUser(), function(req, res){
 app.get('/logout', facebookGetUser(), function(req, res){
   req.user = null;
   req.session.destroy();
-  //res.redirect('/');
-  res.redirect('/login');
+  res.redirect('/');
+  //res.redirect('/login');
 });
 
 function facebookGetUser() {
   return function(req, res, next) {
     req.facebook.getUser( function(err, user) {
       if (!user || err){
-        //res.send("you need to login");
-        res.redirect('/login');
+        res.send("you need to login");
+        //res.redirect('/login');
       } else {
         req.user = user;
         next();
