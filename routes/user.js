@@ -59,7 +59,7 @@ exports.show = function (req, res) {
 	      req.session.user = newUser;
 	      //res.redirect("/");
 	      //res.render("myspace", {title:"Hello " + person.name + '!', pic: data.data.url, user: user});
-	      res.render("myspace", {title:"Hello " + person.name + '!', pic: data.data.url, user: user});
+	      res.render("myspace", {title:"Hello " + person.name + '!', pic: data.data.url, user: newUser});
 	    });
 	}
     else {
